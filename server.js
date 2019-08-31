@@ -24,10 +24,11 @@ app.get("/api/hello", function (req, res) {
   res.json({ greeting: 'hello API' });
 });
 
-app.get("/api/timestamp/:date_string", (req, res) => {
-  const date = new Date(req.params.date_string);
+app.get("/api/timestamp/:date_string?", (req, res) => {
+  const date_string = req.params.date_string;
+  const date = date_string ? new Date(date_string) : new Date();
   if (!isNaN(date.getTime())) {
-    res.send("In timestamp, date_string: " + req.params.date_string);
+    res.send("In timestamp, date_string: " + date.getTime());
   } else {
     res.send("Error");
   }
